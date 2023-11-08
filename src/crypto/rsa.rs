@@ -33,8 +33,8 @@ where
     }
 }
 
-/// The util to do RSA encryption and decryption.
-#[derive(Debug)]
+/// The utility to do RSA encryption and decryption.
+#[derive(Debug, Clone)]
 pub struct RsaCrypto {
     /// The private used to do decryption
     private_key: RsaPrivateKey,
