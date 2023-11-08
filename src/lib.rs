@@ -13,5 +13,5 @@ pub fn random_16_bytes() -> Bytes {
 }
 
 pub trait RsaCryptoFetcher {
-    fn fetch(&self, user_token: String) -> Result<&RsaCrypto, CryptoError>;
+    fn fetch(&self, user_token: &str) -> Result<&RsaCrypto, CryptoError>;
 }
