@@ -6,6 +6,4 @@ pub enum CryptoError {
     Aes(String),
     #[error("Rsa crypto error happen: {0}")]
     Rsa(String),
-    #[error("Rsa crypto not found with user token: {0}")]
-    RsaCryptoNotFound(String),
 }
