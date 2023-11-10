@@ -21,14 +21,14 @@ const DEFAULT_PROXY_PUBLIC_KEY_PATH: &str = "ProxyPublicKey.pem";
 /// with user token
 pub trait RsaCryptoFetcher {
     /// Fetch the rsa crypto by user token
-    fn fetch(&self, user_token: impl AsRef<str>) -> Result<Option<&RsaCrypto>, CryptoError>;
+    fn fetch(&self, user_token: &str) -> Result<Option<&RsaCrypto>, CryptoError>;
 }
 
 impl<T> RsaCryptoFetcher for Arc<T>
 where
     T: RsaCryptoFetcher,
 {
-    fn fetch(&self, user_token: impl AsRef<str>) -> Result<Option<&RsaCrypto>, CryptoError> {
+    fn fetch(&self, user_token: &str) -> Result<Option<&RsaCrypto>, CryptoError> {
         self.as_ref().fetch(user_token)
     }
 }
