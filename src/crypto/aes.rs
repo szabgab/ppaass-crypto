@@ -3,8 +3,6 @@ use bytes::{Bytes, BytesMut};
 use cipher::{block_padding::Pkcs7, BlockEncryptMut};
 use cipher::{BlockDecryptMut, KeyInit};
 
-#[cfg(test)]
-use crate::random_32_bytes;
 use crate::CryptoError;
 type PaddingMode = Pkcs7;
 
@@ -38,23 +36,4 @@ pub fn decrypt_with_aes(
         .map(BytesMut::from)
         .map_err(|e| CryptoError::Aes(format!("{e:?}")))?;
     Ok(result)
-}
-
-#[test]
-fn test() -> Result<(), CryptoError> {
-    let encryption_token = random_32_bytes();
-    let mut target = BytesMut::from_iter(
-        "hello world! this is my plaintext888888888888888."
-            .as_bytes()
-            .to_vec(),
-    );
-    encrypt_with_aes(&encryption_token, &mut target)?;
-    println!("Encrypt result: [{:?}]", String::from_utf8_lossy(&target));
-    let mut encrypted_target = BytesMut::from_iter(target.to_vec());
-    let descrypted_result = decrypt_with_aes(&encryption_token, &mut encrypted_target)?;
-    println!(
-        "Decrypted result: [{:?}]",
-        String::from_utf8_lossy(&descrypted_result)
-    );
-    Ok(())
 }
