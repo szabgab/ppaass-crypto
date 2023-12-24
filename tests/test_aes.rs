@@ -1,6 +1,7 @@
 use bytes::{Bytes, BytesMut};
-use ppaass_crypto::{decrypt_with_aes, encrypt_with_aes, CryptoError};
 use uuid::Uuid;
+use ppaass_crypto::crypto::{decrypt_with_aes, encrypt_with_aes};
+use ppaass_crypto::error::CryptoError;
 
 /// Generate a 32 length bytes
 fn random_32_bytes() -> Bytes {
