@@ -28,7 +28,7 @@ where
     T: RsaCryptoFetcher,
 {
     fn fetch(&self, user_token: impl AsRef<str>) -> Result<Option<&RsaCrypto>, CryptoError> {
-        self.as_ref().fetch(user_token)
+        RsaCryptoFetcher::fetch(self.as_ref(), user_token)
     }
 }
 
@@ -37,7 +37,16 @@ where
     T: RsaCryptoFetcher,
 {
     fn fetch(&self, user_token: impl AsRef<str>) -> Result<Option<&RsaCrypto>, CryptoError> {
-        (*self).fetch(user_token)
+        RsaCryptoFetcher::fetch(*self, user_token)
+    }
+}
+
+impl<T> RsaCryptoFetcher for &mut T
+where
+    T: RsaCryptoFetcher,
+{
+    fn fetch(&self, user_token: impl AsRef<str>) -> Result<Option<&RsaCrypto>, CryptoError> {
+        RsaCryptoFetcher::fetch(*self, user_token)
     }
 }
 
