@@ -32,6 +32,15 @@ where
     }
 }
 
+impl<T> RsaCryptoFetcher for &T
+where
+    T: RsaCryptoFetcher,
+{
+    fn fetch(&self, user_token: impl AsRef<str>) -> Result<Option<&RsaCrypto>, CryptoError> {
+        (*self).fetch(user_token)
+    }
+}
+
 /// The util to do RSA encryption and decryption.
 #[derive(Debug)]
 pub struct RsaCrypto {
